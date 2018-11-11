@@ -1,0 +1,22 @@
+window.onload = function(){
+    var svgCanvas = d3.select("svg")
+        .attr("width", 960)
+        .attr("height", 540)
+        .attr("class", "svgCanvas");
+    
+    d3.csv("third.csv", function(d){
+        console.log(d); 
+        
+        svgCanvas.selectAll("circle")
+            .data(d).enter() // create place hodlers if the data are new
+            .append("circle") // create one circle for each
+            .attr("cx", function(thisElement, index){ // calculate the centres of circles 
+                return 150 + index * 150;
+            })
+            .attr("cy", 300)
+            .attr("r", function(thisElement, index){ // use the value from data to create the radius 
+                return thisElement["value"];
+            });
+        
+    });
+}
